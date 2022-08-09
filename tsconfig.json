@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
-      "@customTypes/*": ["./src/customTypes/*"]
+      "@src/*": ["./src/*"]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,

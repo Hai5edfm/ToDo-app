@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { IconTypes } from '@customTypes/icons';
+import { IconTypes } from '@src/customTypes/icons';
 
-export const AddToDoIcon: FC<IconTypes> = (
-	{ width = 189, 
+export const AddToDoIcon: FC<IconTypes> = ({
+		width = 189, 
 		height = 189, 
 		fill = "black"
 	}: IconTypes) => {
