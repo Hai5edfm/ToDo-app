@@ -8,6 +8,10 @@ import { useToDos } from './hooks/useToDos';
 import './styles/main.scss';
 
 export const App = () => {
+  if(typeof document !== 'undefined' && window.localStorage.getItem("toDos") === null) {
+      window.localStorage.setItem("toDos", JSON.stringify([]));
+  }
+
   const {
     toDos,
     addToDo,

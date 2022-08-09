@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { ToDo } from '@src/customTypes/ToDo';
 
 export const useToDos = () => {
-	const [toDos, setToDos] = useState<ToDo[]>([]);
+	const localToDos = JSON.parse(window.localStorage.getItem('toDos') || '[]') as ToDo[];
+	const [toDos, setToDos] = useState<ToDo[]>(localToDos);
 
 	const addToDo = (text: string) => {
 		const newToDo: ToDo = {
@@ -12,10 +13,12 @@ export const useToDos = () => {
 		};
 
 		setToDos([...toDos, newToDo]);
+		window.localStorage.setItem('toDos', JSON.stringify([...toDos, newToDo]));
 	}
 
 	const removeToDo = (id: number) => {
 		setToDos(toDos.filter(toDo => toDo.id !== id));
+		window.localStorage.setItem('toDos', JSON.stringify(toDos.filter(toDo => toDo.id !== id)));
 	}
 
 	const toggleToDo = (id: number) => {
@@ -28,6 +31,15 @@ export const useToDos = () => {
 			}
 			return toDo;
 		}));
+		window.localStorage.setItem('toDos', JSON.stringify(toDos.map(toDo => {
+			if (toDo.id === id) {
+				return {
+					...toDo,
+					completed: !toDo.completed,
+				}
+			}
+			return toDo;
+		})));
 	}
 
 	const searchToDo = (text: string) => {
