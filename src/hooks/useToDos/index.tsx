@@ -13,9 +13,11 @@ export const useToDos = () => {
 
 		setToDos([...toDos, newToDo]);
 	}
+
 	const removeToDo = (id: number) => {
 		setToDos(toDos.filter(toDo => toDo.id !== id));
 	}
+
 	const toggleToDo = (id: number) => {
 		setToDos(toDos.map(toDo => {
 			if (toDo.id === id) {
@@ -27,11 +29,32 @@ export const useToDos = () => {
 			return toDo;
 		}));
 	}
+
+	const searchToDo = (text: string) => {
+		setToDos(toDos.filter(toDo => toDo.text.includes(text)));
+	}
+
+	const showCompletedToDos = () => {
+		setToDos(toDos.filter(toDo => toDo.completed));
+	}
+
+	const showActiveToDos = () => {
+		setToDos(toDos.filter(toDo => !toDo.completed));
+	}
+
+	const showAllToDos = () => {
+		setToDos(toDos);
+	}
+
 	return {
 		toDos,
 		addToDo,
 		removeToDo,
 		toggleToDo,
+		searchToDo,
+		showCompletedToDos,
+		showActiveToDos,
+		showAllToDos,
 	}
 }
 
