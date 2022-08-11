@@ -1,9 +1,13 @@
+import React, { FC } from 'react'
+import { HOCProps } from '@src/customTypes/HOCProps';
 
-export const ToDoCard = () => {
+import '../../styles/components/_ToDoCard.scss';
+
+export const ToDoCard: FC<HOCProps> = ({ children }: HOCProps) => {
   return (
-    <div>
-      <h1>ToDoCard</h1>
-    </div>
+    <React.Fragment>
+      { children }
+    </React.Fragment>
   )
 }
 

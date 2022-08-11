@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
+import { HOCProps } from '@src/customTypes/HOCProps';
 
-export const ToDoCounter: FC = () => {
+export const ToDoCounter: FC<HOCProps> = ({children}:HOCProps) => {
   return (
     <React.Fragment>
-      <h1>ToDoCounter</h1>
+      { children }
     </React.Fragment>
   )
 }

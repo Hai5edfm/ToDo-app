@@ -9,7 +9,7 @@ export const useToDos = () => {
 		const newToDo: ToDo = {
 			id: toDos.length + 1,
 			text,
-			completed: false,
+			isCompleted: false,
 		};
 
 		setToDos([...toDos, newToDo]);
@@ -17,29 +17,30 @@ export const useToDos = () => {
 	}
 
 	const removeToDo = (id: number) => {
-		setToDos(toDos.filter(toDo => toDo.id !== id));
+		const newToDos = toDos.filter(toDo => toDo.id !== id);
+		setToDos(newToDos);
 		window.localStorage.setItem('toDos', JSON.stringify(toDos.filter(toDo => toDo.id !== id)));
 	}
 
 	const toggleToDo = (id: number) => {
-		setToDos(toDos.map(toDo => {
-			if (toDo.id === id) {
-				return {
-					...toDo,
-					completed: !toDo.completed,
-				}
-			}
-			return toDo;
-		}));
 		window.localStorage.setItem('toDos', JSON.stringify(toDos.map(toDo => {
 			if (toDo.id === id) {
 				return {
 					...toDo,
-					completed: !toDo.completed,
+					completed: !toDo.isCompleted,
 				}
 			}
 			return toDo;
 		})));
+		setToDos(toDos.map(toDo => {
+			if (toDo.id === id) {
+				return {
+					...toDo,
+					completed: !toDo.isCompleted,
+				}
+			}
+			return toDo;
+		}));
 	}
 
 	const searchToDo = (text: string) => {
@@ -47,11 +48,11 @@ export const useToDos = () => {
 	}
 
 	const showCompletedToDos = () => {
-		setToDos(toDos.filter(toDo => toDo.completed));
+		setToDos(toDos.filter(toDo => toDo.isCompleted));
 	}
 
 	const showActiveToDos = () => {
-		setToDos(toDos.filter(toDo => !toDo.completed));
+		setToDos(toDos.filter(toDo => !toDo.isCompleted));
 	}
 
 	const showAllToDos = () => {
