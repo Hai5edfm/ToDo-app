@@ -1,0 +1,37 @@
+@import '../variables';
+
+.search-to-do {
+    display: flex;
+    flex-direction: column;
+    &__input {
+        display: flex;
+        align-items: center;
+        margin-block-end: 12px;
+        & input {
+            display: flex;
+            width: 90%;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 0 10px;
+            &:focus {
+                outline: none;
+            }
+        }
+        & button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            margin-left: 10px;
+        }
+    }
+    &__label {
+        font-size: 1.2rem;
+        color: $font-color__light;
+        margin-bottom: 5px;
+    }
+}
+
+

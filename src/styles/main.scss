@@ -12,6 +12,10 @@ body {
 	color: $font-color__light;
 }
 
+header {
+	margin-block: 32px;
+}
+
 main {
     max-height: 800px;
     overflow-y: scroll;
