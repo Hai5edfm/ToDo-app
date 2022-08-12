@@ -1,9 +1,11 @@
 
-.add-to-do-button {
+
+.close-modal-button {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    position: fixed;
+    position: absolute;
     right: 20px;
-    bottom: 20px;
+    top: 20px;
 }
+

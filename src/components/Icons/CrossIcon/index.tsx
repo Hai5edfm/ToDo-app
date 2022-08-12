@@ -1,20 +1,15 @@
 import { FC } from 'react';
 import { IconTypes } from '@src/customTypes/icons';
 
-export const DeleteToDoIcon: FC<IconTypes> = ({
+export const CrossIcon: FC<IconTypes> = ({
 		width = 169,
 		height = 192,
 		fill = 'black'
 	}: IconTypes) => (
 	<svg width={width} height={height} viewBox="0 0 169 192" fill="none">
-		<g clip-path="url(#clip0_434_11)">
+		<g clipPath="url(#clip0_434_11)">
 			<path d="M165.743 160.312C170.721 165.405 169.917 172.969 163.941 177.21C161.414 179.009 158.225 179.995 154.932 179.993C150.896 179.993 146.892 178.522 144.11 175.673L84.4998 114.412L24.9097 175.35C22.1247 178.198 18.1233 179.67 14.0875 179.67C10.7944 179.671 7.60566 178.686 5.07859 176.887C-0.898026 172.645 -1.70342 165.082 3.2768 159.989L66.1677 95.6767L3.26624 31.6875C-1.71266 26.595 -0.908148 19.0312 5.06979 14.79C11.0376 10.5375 19.9145 11.2215 24.9009 16.3252L84.4998 77.25L144.09 16.3125C149.063 11.22 157.944 10.53 163.921 14.7772C169.898 19.0185 170.703 26.5822 165.723 31.6747L102.832 95.9872L165.743 160.312Z" fill={fill}/>
 		</g>
-		<defs>
-			<clipPath id="clip0_434_11">
-				<rect width={width} height={height} fill="white"/>
-			</clipPath>
-		</defs>
 	</svg>
 )
 

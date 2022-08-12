@@ -14,6 +14,9 @@ import { AddToDoIcon } from './components/Icons/AddToDoIcon';
 
 import './styles/main.scss';
 import { AddToDoModal } from './HOC/AddToDoModal';
+import { ModalPortal } from './_document';
+import { CloseModalButton } from './HOC/CloseModalButton';
+import { CrossIcon } from './components/Icons/CrossIcon';
 
 export const App = () => {
   if(typeof document !== 'undefined' && window.localStorage.getItem("toDos") === null) {
@@ -54,9 +57,15 @@ export const App = () => {
           <AddToDoIcon width={60} height={60} fill='#eee'/>
         </AddToDoButton>
 
-        <AddToDoModal editingToDos={editingToDos}>
-          <AddToDoForm addToDo={addToDo} />
-        </AddToDoModal>
+        <ModalPortal showModal={editingToDos}>
+          <AddToDoModal editingToDos={editingToDos}>
+            <CloseModalButton setEditingToDos={setEditingToDos}>
+              <CrossIcon width={22} height={22}/>
+            </CloseModalButton>
+            <AddToDoForm addToDo={addToDo} setEditingToDos={setEditingToDos}/>
+          </AddToDoModal>
+        </ModalPortal>
+
       </main>
     </div>
   )

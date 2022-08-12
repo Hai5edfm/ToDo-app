@@ -1,5 +1,7 @@
 import React, { FC } from 'react';
 
+import '../../styles/HOC/_AddToDoModal.scss'
+
 type AddToDoModalProps = {
     editingToDos: 'add' | 'remove' | '';
     children: JSX.Element | JSX.Element[];
