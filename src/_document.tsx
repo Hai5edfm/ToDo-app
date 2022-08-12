@@ -4,17 +4,15 @@ import './styles/main.scss';
 
 type ModalProps = {
     children: JSX.Element | JSX.Element[];
-    showModal: string;
+    showModal: 'add' | 'remove' | '';
 }
 
 export const ModalPortal: FC<ModalProps> = ({ children, showModal }: ModalProps) => {
-    return showModal !== ''
-    ? ReactDOM.createPortal(
+    return ReactDOM.createPortal(
         <div className='modal-container'>
             {children}
         </div>,
         document.getElementById('modal-root') as Element
     )
-    : null;
 }
 

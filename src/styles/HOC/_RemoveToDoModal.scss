@@ -1,0 +1,40 @@
+@import '../variables';
+
+.Remove-todo-Modal {
+    height: 200px;
+    width: 400px;
+    background-color: #eee;
+    position: relative;
+    & .remove-todo-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        & .remove-todo__label {
+                font-size: 1.2rem;
+                color: $font-color__primary;
+                margin-block-end: 16px;
+            }
+        & .remove-todo-button {
+            width: 60%;
+            height: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #eee;
+            color: #000;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-block-end: 12px;
+            &__delete:hover {
+                background-color: #db2020;
+                color: #fff;
+            }
+            &__cancel:hover {
+                background-color: #fff;
+                color: #000;
+            }
+        }
+    }
+}

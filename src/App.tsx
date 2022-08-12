@@ -17,12 +17,18 @@ import { AddToDoModal } from './HOC/AddToDoModal';
 import { ModalPortal } from './_document';
 import { CloseModalButton } from './HOC/CloseModalButton';
 import { CrossIcon } from './components/Icons/CrossIcon';
+import { ToDoSearchInput } from './components/ToDoSearchInput';
+import { RemoveToDoButton } from './HOC/RemoveToDoButton';
+import { RemoveToDoForm } from './components/RemoveToDoForm';
+import { RemoveToDoModal } from './HOC/RemoveToDoModal';
 
 export const App = () => {
   if(typeof document !== 'undefined' && window.localStorage.getItem("toDos") === null) {
       window.localStorage.setItem("toDos", JSON.stringify([]));
   }
-  const [ editingToDos, setEditingToDos ] = useState<'add'|'remove'|''>('');  
+  const [ editingToDos, setEditingToDos ] = useState<'add'|'remove'|''>('');
+  const [ toDoSelected , setToDoSelected ] = useState<number>(0);
+
   const {
     toDos,
     addToDo,
@@ -42,6 +48,7 @@ export const App = () => {
         </ToDoCounter>
       </Header>
       <main>
+        <ToDoSearchInput searchToDo={searchToDo}/>
         <ToDoList>
           {toDos.map(({id, text, isCompleted}) => (
             <ToDoCard key={id}>
@@ -49,6 +56,12 @@ export const App = () => {
                 <MarkAsDoneIcon isCompleted={isCompleted}/>
               </CompleteToDoButton>
               <p className={`todo-card__text todo-card__text${isCompleted ? '-completed' : ''}`}> {text} </p>
+              <RemoveToDoButton 
+                setEditingToDos={setEditingToDos}
+                setToDoSelected={setToDoSelected}
+                toDoId={id}>
+                <CrossIcon width={22} height={22}/>
+              </RemoveToDoButton>
             </ToDoCard>
           ))}
         </ToDoList>
@@ -57,14 +70,23 @@ export const App = () => {
           <AddToDoIcon width={60} height={60} fill='#eee'/>
         </AddToDoButton>
 
-        <ModalPortal showModal={editingToDos}>
-          <AddToDoModal editingToDos={editingToDos}>
-            <CloseModalButton setEditingToDos={setEditingToDos}>
-              <CrossIcon width={22} height={22}/>
-            </CloseModalButton>
-            <AddToDoForm addToDo={addToDo} setEditingToDos={setEditingToDos}/>
-          </AddToDoModal>
-        </ModalPortal>
+        {(editingToDos !== '' && editingToDos === 'remove') && (
+          <ModalPortal showModal={editingToDos}>
+            <RemoveToDoModal editingToDos={editingToDos}>
+              <RemoveToDoForm removeToDo={removeToDo} setEditingToDos={setEditingToDos} toDoId={toDoSelected}/>
+            </RemoveToDoModal>
+          </ModalPortal> 
+        )}
+        {(editingToDos !== '' && editingToDos === 'add') && (
+          <ModalPortal showModal={editingToDos}>
+            <AddToDoModal editingToDos={editingToDos}>
+              <CloseModalButton setEditingToDos={setEditingToDos}>
+                <CrossIcon width={22} height={22}/>
+              </CloseModalButton>
+              <AddToDoForm addToDo={addToDo} setEditingToDos={setEditingToDos}/>
+            </AddToDoModal>
+          </ModalPortal>
+        )}
 
       </main>
     </div>
