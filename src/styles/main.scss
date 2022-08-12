@@ -12,4 +12,15 @@ body {
 	color: $font-color__light;
 }
 
+.to-do-counter {
+	font-size: 1.8rem;
+	text-align: center;
+}
 
+.App {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}

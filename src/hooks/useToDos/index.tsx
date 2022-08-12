@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { ToDo } from '@src/customTypes/ToDo';
 
 export const useToDos = () => {
-	const localToDos = JSON.parse(window.localStorage.getItem('toDos') || '[]') as ToDo[];
+	const LocalStorage = window.localStorage;
+	const localToDos = JSON.parse(LocalStorage.getItem('toDos') || '[]') as ToDo[];
 	const [toDos, setToDos] = useState<ToDo[]>(localToDos);
 
 	const addToDo = (text: string) => {
@@ -11,36 +12,29 @@ export const useToDos = () => {
 			text,
 			isCompleted: false,
 		};
+		const newToDos = [...toDos, newToDo];
 
-		setToDos([...toDos, newToDo]);
-		window.localStorage.setItem('toDos', JSON.stringify([...toDos, newToDo]));
+		setToDos(newToDos);
+		LocalStorage.setItem('toDos', JSON.stringify(newToDos));
 	}
 
 	const removeToDo = (id: number) => {
 		const newToDos = toDos.filter(toDo => toDo.id !== id);
 		setToDos(newToDos);
-		window.localStorage.setItem('toDos', JSON.stringify(toDos.filter(toDo => toDo.id !== id)));
+		LocalStorage.setItem('toDos', JSON.stringify(newToDos));
 	}
 
 	const toggleToDo = (id: number) => {
-		window.localStorage.setItem('toDos', JSON.stringify(toDos.map(toDo => {
+		LocalStorage.setItem('toDos', JSON.stringify(toDos.map(toDo => {
 			if (toDo.id === id) {
 				return {
 					...toDo,
-					completed: !toDo.isCompleted,
+					isCompleted: !toDo.isCompleted,
 				}
 			}
 			return toDo;
 		})));
-		setToDos(toDos.map(toDo => {
-			if (toDo.id === id) {
-				return {
-					...toDo,
-					completed: !toDo.isCompleted,
-				}
-			}
-			return toDo;
-		}));
+		setToDos(JSON.parse(LocalStorage.getItem('toDos') || '[]') as ToDo[]);
 	}
 
 	const searchToDo = (text: string) => {
