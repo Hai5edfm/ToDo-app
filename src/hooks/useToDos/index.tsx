@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { ToDo } from '@src/customTypes/ToDo';
+import { nanoid } from 'nanoid';
 
 export const useToDos = () => {
 	const LocalStorage = window.localStorage;
@@ -8,7 +9,7 @@ export const useToDos = () => {
 
 	const addToDo = (text: string) => {
 		const newToDo: ToDo = {
-			id: toDos.length + 1,
+			id: nanoid(),
 			text,
 			isCompleted: false,
 		};
@@ -18,13 +19,13 @@ export const useToDos = () => {
 		LocalStorage.setItem('toDos', JSON.stringify(newToDos));
 	}
 
-	const removeToDo = (id: number) => {
+	const removeToDo = (id: number | string) => {
 		const newToDos = toDos.filter(toDo => toDo.id !== id);
 		setToDos(newToDos);
 		LocalStorage.setItem('toDos', JSON.stringify(newToDos));
 	}
 
-	const toggleToDo = (id: number) => {
+	const toggleToDo = (id: number | string) => {
 		LocalStorage.setItem('toDos', JSON.stringify(toDos.map(toDo => {
 			if (toDo.id === id) {
 				return {
@@ -38,7 +39,7 @@ export const useToDos = () => {
 	}
 
 	const searchToDo = (text: string) => {
-		setToDos(toDos.filter(toDo => toDo.text.includes(text)));
+		setToDos(toDos.filter(toDo => toDo.text.toLowerCase().includes(text.toLowerCase())));
 	}
 
 	const showCompletedToDos = () => {
@@ -50,7 +51,7 @@ export const useToDos = () => {
 	}
 
 	const showAllToDos = () => {
-		setToDos(toDos);
+		setToDos(JSON.parse(LocalStorage.getItem('toDos') || '[]') as ToDo[]);
 	}
 
 	return {

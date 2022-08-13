@@ -1,15 +1,15 @@
 import { FC } from 'react';
 
 type RemoveToDoFormProps = {
-    removeToDo: (id: number) => void;
+    removeToDo: (id: number | string) => void;
     setEditingToDos: React.Dispatch<React.SetStateAction<'add'|'remove'|''>>;
-    toDoId: number;
+    toDoId: number | string;
 }
 export const RemoveToDoForm: FC<RemoveToDoFormProps> = ({ removeToDo, setEditingToDos, toDoId }: RemoveToDoFormProps) => {
 
     const handleRemove = (e : React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        removeToDo(Number(toDoId));
+        removeToDo(toDoId);
         setEditingToDos('');
     }
 

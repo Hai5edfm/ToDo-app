@@ -27,7 +27,7 @@ export const App = () => {
       window.localStorage.setItem("toDos", JSON.stringify([]));
   }
   const [ editingToDos, setEditingToDos ] = useState<'add'|'remove'|''>('');
-  const [ toDoSelected , setToDoSelected ] = useState<number>(0);
+  const [ toDoSelected , setToDoSelected ] = useState<number | string>(0);
 
   const {
     toDos,
@@ -48,11 +48,11 @@ export const App = () => {
         </ToDoCounter>
       </Header>
       <main>
-        <ToDoSearchInput searchToDo={searchToDo}/>
+        <ToDoSearchInput searchToDo={searchToDo} showAllToDos={showAllToDos}/>
         <ToDoList>
           {toDos.map(({id, text, isCompleted}) => (
             <ToDoCard key={id}>
-              <CompleteToDoButton toggleToDo={toggleToDo} id={id}>
+              <CompleteToDoButton toggleToDo={toggleToDo} id={id} isCompleted={isCompleted}>
                 <MarkAsDoneIcon isCompleted={isCompleted}/>
               </CompleteToDoButton>
               <p className={`todo-card__text todo-card__text${isCompleted ? '-completed' : ''}`}> {text} </p>
