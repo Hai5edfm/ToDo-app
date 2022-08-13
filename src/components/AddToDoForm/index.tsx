@@ -18,10 +18,30 @@ export const AddToDoForm: FC<addToDoProps> = ({ addToDo, setEditingToDos }: addT
   }
 
   return (
-    <form onSubmit={handleSubmit} className="add-todo-container">
-      <label htmlFor='add-todo-input' className='add-todo-input__label'>Add your new To-do</label>
-      <input id="add-todo-input" className="add-todo-input" type="text" placeholder="Add a new ToDo" required autoFocus/>
-      <button type="submit" className="add-todo-button">Add</button>
+    <form 
+      onSubmit={handleSubmit} 
+      className="add-todo-container"
+    >
+      <label 
+        htmlFor='add-todo-input' 
+        className='add-todo-input__label'
+      >
+        Add your new To-do
+      </label>
+      <input 
+        id="add-todo-input" 
+        className="add-todo-input" 
+        type="text" 
+        autoComplete='off'
+        placeholder="Add a new ToDo" 
+        required 
+        autoFocus/>
+      <button 
+        type="submit" 
+        className="add-todo-button"
+      >
+        Add
+      </button>
     </form>
   )
 }
