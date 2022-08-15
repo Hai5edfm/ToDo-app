@@ -1,0 +1,34 @@
+@import '../variables';
+
+.filter {
+    &-container {
+        position: relative;
+    }
+    &-list {
+        position: absolute;
+        background-color: $complementary-color__light;
+        z-index: 2;
+        bottom: -90px;
+        left: -160%;
+        padding: 4px;
+        & li {
+            list-style: none;
+            padding: 4px;
+            border-radius: 4px;
+            color: $font-color__primary;
+            & button {
+                border: none;
+                background: none;
+                cursor: pointer;
+                width: 100%;
+                text-align: start;
+                color: inherit;
+                font-weight: 600;
+            }
+            &:hover {
+                background-color: $complementary-color__blue;
+                color: $font-color__light;
+            }
+        }
+    }
+}

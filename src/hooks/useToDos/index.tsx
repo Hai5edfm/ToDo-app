@@ -43,15 +43,15 @@ export const useToDos = () => {
 	}
 
 	const showCompletedToDos = () => {
-		setToDos(toDos.filter(toDo => toDo.isCompleted));
+		setToDos(localToDos.filter(toDo => toDo.isCompleted));
 	}
 
 	const showActiveToDos = () => {
-		setToDos(toDos.filter(toDo => !toDo.isCompleted));
+		setToDos(localToDos.filter(toDo => !toDo.isCompleted));
 	}
 
 	const showAllToDos = () => {
-		setToDos(JSON.parse(LocalStorage.getItem('toDos') || '[]') as ToDo[]);
+		setToDos(localToDos);
 	}
 
 	return {
