@@ -21,6 +21,7 @@ import { ToDoSearchInput } from './components/ToDoSearchInput';
 import { RemoveToDoButton } from './HOC/RemoveToDoButton';
 import { RemoveToDoForm } from './components/RemoveToDoForm';
 import { RemoveToDoModal } from './HOC/RemoveToDoModal';
+import { ErrorMessage } from './components/Error';
 
 export const App = () => {
   if(typeof document !== 'undefined' && window.localStorage.getItem("toDos") === null) {
@@ -49,6 +50,7 @@ export const App = () => {
       </Header>
       <main>
         <ToDoSearchInput searchToDo={searchToDo} showAllToDos={showAllToDos}/>
+        <ErrorMessage toDos={toDos} setEditingToDos={setEditingToDos}/>
         <ToDoList>
           {toDos.map(({id, text, isCompleted}) => (
             <ToDoCard key={id}>

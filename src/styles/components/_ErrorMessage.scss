@@ -1,0 +1,20 @@
+
+.error-message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-block-start: 10vh;
+    text-align: center;
+    & button {
+        border: none;
+        background: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        & em {
+            color: rgb(163, 206, 45);
+            &:hover {
+                color: rgb(163, 206, 45);
+                cursor: pointer;
+            }
+        }
+    }
+}
