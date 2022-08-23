@@ -56,6 +56,7 @@ export const useToDos = () => {
 
 	return {
 		toDos,
+		localToDos,
 		addToDo,
 		removeToDo,
 		toggleToDo,

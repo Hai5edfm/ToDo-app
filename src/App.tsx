@@ -38,6 +38,7 @@ export const App = () => {
 
   const {
     toDos,
+    localToDos,
     addToDo,
     removeToDo,
     toggleToDo,
@@ -90,6 +91,7 @@ export const App = () => {
         />
         <ErrorMessage 
           toDos={toDos} 
+          localToDos={localToDos}
           setEditingToDos={setEditingToDos}
         />
         <ToDoList>
