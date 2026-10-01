@@ -5,7 +5,17 @@
     border: none;
     cursor: pointer;
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 16px;
+    top: 16px;
+    border-radius: 4px;
+    padding: 4px;
+    transition: transform 140ms ease;
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+    &:hover {
+        transform: rotate(6deg);
+    }
 }
 

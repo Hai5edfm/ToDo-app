@@ -3,9 +3,20 @@
     background: transparent;
     border: none;
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 16px;
+    top: 16px;
+    border-radius: 4px;
+    padding: 4px;
+    transition: transform 140ms ease;
+    &:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+    cursor: pointer;
     &:hover {
-        cursor: pointer;
+        transform: scale(1.06);
+    }
+    &:active {
+        transform: scale(0.98);
     }
 }

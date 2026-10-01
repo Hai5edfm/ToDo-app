@@ -1,4 +1,4 @@
-@import '../variables';
+@use '../variables' as *;
 
 .todo-card {
     display: flex;
@@ -8,10 +8,14 @@
     min-width: 280px;
     max-width: 480px;
     font-size: 1.2rem;
-    border-radius: 5px;
+    border-radius: 8px;
     background-color: #eee;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    transition: transform 160ms ease;
+    &:hover {
+        transform: translateY(-2px);
+    }
     color: $font-color__primary;
     position: relative;
     &__text {
