@@ -1,39 +1,27 @@
 @use '../variables' as *;
 
-.filter {
-    &-container {
-        position: relative;
-    }
-    &-list {
-        position: absolute;
-        background-color: $complementary-color__light;
-        z-index: 2;
-        bottom: -90px;
-        left: -160%;
-        padding: 4px;
-        & li {
-            list-style: none;
-            padding: 4px;
-            border-radius: 4px;
+.filter-tabs {
+    display: flex;
+    gap: 8px;
+    margin-block: 8px 4px;
+
+    & button {
+        border: 1px solid $complementary-color__light;
+        border-radius: 5px;
+        background-color: transparent;
+        color: $font-color__light;
+        cursor: pointer;
+        font: inherit;
+        padding: 8px 12px;
+
+        &[aria-selected='true'] {
+            background-color: $complementary-color__light;
             color: $font-color__primary;
-            transition: color 140ms ease, background-color 140ms ease;
-            & button {
-                border: none;
-                background: none;
-                cursor: pointer;
-                width: 100%;
-                text-align: start;
-                color: inherit;
-                font-weight: 600;
-                &:focus-visible {
-                    outline: 2px solid currentColor;
-                    outline-offset: 2px;
-                }
-            }
-            &:hover {
-                background-color: $complementary-color__blue;
-                color: $font-color__light;
-            }
+        }
+
+        &:focus-visible {
+            outline: 2px solid $secondary-color;
+            outline-offset: 2px;
         }
     }
 }

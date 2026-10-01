@@ -9,7 +9,7 @@ type AddToDoModalProps = {
 
 export const CloseModalButton: FC<AddToDoModalProps> = ({ setEditingToDos, children}: AddToDoModalProps) => {
     return (
-        <button className='close-modal-button' onClick={() => setEditingToDos('')}>
+        <button className='close-modal-button' aria-label='Close add task dialog' onClick={() => setEditingToDos('')}>
             { children }
         </button>
     );

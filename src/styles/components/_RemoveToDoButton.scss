@@ -1,4 +1,6 @@
 
+@use '../variables' as *;
+
 .remove-to-do-button {
     background: transparent;
     border: none;
@@ -9,7 +11,7 @@
     padding: 4px;
     transition: transform 140ms ease;
     &:focus-visible {
-        outline: 2px solid currentColor;
+        outline: 2px solid $secondary-color;
         outline-offset: 2px;
     }
     cursor: pointer;

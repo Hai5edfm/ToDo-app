@@ -1,4 +1,6 @@
 
+@use '../variables' as *;
+
 .add-to-do-button {
     background-color: transparent;
     border: none;
@@ -10,7 +12,7 @@
     padding: 8px;
     transition: transform 160ms ease;
     &:focus-visible {
-        outline: 2px solid currentColor;
+        outline: 2px solid $secondary-color;
         outline-offset: 3px;
     }
     &:hover {

@@ -1,58 +1,61 @@
-import { FC, useEffect, useState } from 'react';
-
+import { FC, useRef } from 'react';
+import { CrossIcon } from '../Icons/CrossIcon';
 import '../../styles/components/_ToDoSearchInput.scss';
 
 type ToDoSearchProps = {
+    searchText: string,
     searchToDo: (text: string) => void,
-    showAllToDos: () => void,
-    iconFunctionalities?: React.ReactNode[],
+    clearSearchText: () => void,
+    searchIcon?: React.ReactNode,
 }
 
 export const ToDoSearchInput: FC<ToDoSearchProps> = ({
-    searchToDo, 
-    showAllToDos,
-    iconFunctionalities = [],
-}: ToDoSearchProps
-) => {
-    const [searchText, setSearchText] = useState('');
-    const searchInput = document.getElementById('search-to-do') as HTMLInputElement;
+    searchText,
+    searchToDo,
+    clearSearchText,
+    searchIcon,
+}: ToDoSearchProps) => {
+    const inputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
-        if(searchText === '') {
-            showAllToDos()
-        } else {
-            searchToDo(searchInput.value)
-        }
-    } , [searchText]);
+    const clearSearch = () => {
+        clearSearchText();
+        inputRef.current?.focus();
+    };
 
     return (
         <form
-            action='#'
             className="search-to-do"
+            onSubmit={event => event.preventDefault()}
         >
-            <div className='search-to-do__input-container'>
-                <label 
-                    htmlFor="search-to-do" 
-                    className="search-to-do__label"
-                >
+            <div className="search-to-do__input-container">
+                <label htmlFor="search-to-do" className="search-to-do__label">
                     Search ToDos
                 </label>
                 <div className="search-to-do__input">
-                    <input 
+                    <input
+                        ref={inputRef}
                         id="search-to-do"
                         name="search-to-do"
                         type="text"
-                        placeholder="Search" 
-                        autoComplete='off'
-                        onChange={e => setSearchText(e.target.value)}
+                        placeholder="Search"
+                        autoComplete="off"
+                        value={searchText}
+                        onChange={event => searchToDo(event.target.value)}
                     />
+                    {searchText !== '' && (
+                        <button
+                            type="button"
+                            className="search-to-do__clear"
+                            aria-label="Clear search"
+                            onMouseDown={event => event.preventDefault()}
+                            onClick={clearSearch}
+                        >
+                            <CrossIcon width={14} height={14} />
+                        </button>
+                    )}
+                    {searchIcon}
                 </div>
             </div>
-            {iconFunctionalities && iconFunctionalities.length > 0 && (
-                <div className="search-to-do__functionalities">
-                    {iconFunctionalities}
-                </div>
-            )}
         </form>
     );
-}
+};

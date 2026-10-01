@@ -27,7 +27,7 @@
                 outline: none;
             }
             &:focus-visible {
-                outline: 2px solid currentColor;
+                outline: 2px solid $secondary-color;
                 outline-offset: 2px;
             }
             &__label {
@@ -47,7 +47,7 @@
             font-weight: bold;
             transition: transform 140ms ease, background-color 140ms ease;
             &:focus-visible {
-                outline: 2px solid currentColor;
+                outline: 2px solid $secondary-color;
                 outline-offset: 2px;
             }
             &:hover {

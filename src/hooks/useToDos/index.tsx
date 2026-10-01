@@ -2,10 +2,28 @@ import { useState } from 'react';
 import { ToDo } from '@src/customTypes/ToDo';
 import { nanoid } from 'nanoid';
 
+type ToDoStatusFilter = 'all' | 'pending' | 'done';
+
 export const useToDos = () => {
 	const LocalStorage = window.localStorage;
-	const localToDos = JSON.parse(LocalStorage.getItem('toDos') || '[]') as ToDo[];
-	const [toDos, setToDos] = useState<ToDo[]>(localToDos);
+	const [localToDos, setLocalToDos] = useState<ToDo[]>(() =>
+		JSON.parse(LocalStorage.getItem('toDos') || '[]') as ToDo[],
+	);
+	const [statusFilter, setStatusFilter] = useState<ToDoStatusFilter>('all');
+	const [searchText, setSearchText] = useState('');
+
+	const toDos = localToDos.filter(toDo => {
+		const matchesStatus = statusFilter === 'all'
+			|| (statusFilter === 'pending' && !toDo.isCompleted)
+			|| (statusFilter === 'done' && toDo.isCompleted);
+		const matchesSearch = toDo.text.toLowerCase().includes(searchText.toLowerCase());
+		return matchesStatus && matchesSearch;
+	});
+
+	const saveToDos = (nextToDos: ToDo[]) => {
+		setLocalToDos(nextToDos);
+		LocalStorage.setItem('toDos', JSON.stringify(nextToDos));
+	};
 
 	const addToDo = (text: string) => {
 		const newToDo: ToDo = {
@@ -13,58 +31,51 @@ export const useToDos = () => {
 			text,
 			isCompleted: false,
 		};
-		const newToDos = [...toDos, newToDo];
-
-		setToDos(newToDos);
-		LocalStorage.setItem('toDos', JSON.stringify(newToDos));
+		saveToDos([...localToDos, newToDo]);
 	}
 
 	const removeToDo = (id: number | string) => {
-		const newToDos = toDos.filter(toDo => toDo.id !== id);
-		setToDos(newToDos);
-		LocalStorage.setItem('toDos', JSON.stringify(newToDos));
+		saveToDos(localToDos.filter(toDo => toDo.id !== id));
 	}
 
 	const toggleToDo = (id: number | string) => {
-		LocalStorage.setItem('toDos', JSON.stringify(toDos.map(toDo => {
-			if (toDo.id === id) {
-				return {
-					...toDo,
-					isCompleted: !toDo.isCompleted,
-				}
-			}
-			return toDo;
-		})));
-		setToDos(JSON.parse(LocalStorage.getItem('toDos') || '[]') as ToDo[]);
+		saveToDos(localToDos.map(toDo => toDo.id === id
+			? { ...toDo, isCompleted: !toDo.isCompleted }
+			: toDo,
+		));
 	}
 
 	const searchToDo = (text: string) => {
-		setToDos(toDos.filter(toDo => toDo.text.toLowerCase().includes(text.toLowerCase())));
+		setSearchText(text);
+	}
+
+	const clearSearchText = () => {
+		setSearchText('');
 	}
 
 	const showCompletedToDos = () => {
-		setToDos(localToDos.filter(toDo => toDo.isCompleted));
+		setStatusFilter('done');
 	}
 
 	const showActiveToDos = () => {
-		setToDos(localToDos.filter(toDo => !toDo.isCompleted));
+		setStatusFilter('pending');
 	}
 
 	const showAllToDos = () => {
-		setToDos(localToDos);
+		setStatusFilter('all');
 	}
 
 	return {
 		toDos,
 		localToDos,
+		searchText,
 		addToDo,
 		removeToDo,
 		toggleToDo,
 		searchToDo,
+		clearSearchText,
 		showCompletedToDos,
 		showActiveToDos,
 		showAllToDos,
 	}
 }
-
-

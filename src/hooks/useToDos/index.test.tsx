@@ -49,19 +49,22 @@ describe('useToDos', () => {
     expect(JSON.parse(window.localStorage.getItem('toDos') || '[]')).toEqual(result.current.toDos);
   });
 
-  it('searches case-insensitively and filters the saved task list', () => {
+  it('preserves case-insensitive search while composing it with each status filter', () => {
     const { result } = renderHook(() => useToDos());
 
-    act(() => result.current.searchToDo('TEA'));
-    expect(result.current.toDos.map(({ id }) => id)).toEqual(['tea']);
+    act(() => result.current.searchToDo('BUY'));
+    expect(result.current.toDos.map(({ id }) => id)).toEqual(['milk', 'tea']);
 
     act(() => result.current.showCompletedToDos());
-    expect(result.current.toDos.map(({ id }) => id)).toEqual(['laundry']);
+    expect(result.current.searchText).toBe('BUY');
+    expect(result.current.toDos).toEqual([]);
 
     act(() => result.current.showActiveToDos());
+    expect(result.current.searchText).toBe('BUY');
     expect(result.current.toDos.map(({ id }) => id)).toEqual(['milk', 'tea']);
 
     act(() => result.current.showAllToDos());
-    expect(result.current.toDos).toEqual(savedToDos);
+    expect(result.current.searchText).toBe('BUY');
+    expect(result.current.toDos.map(({ id }) => id)).toEqual(['milk', 'tea']);
   });
 });

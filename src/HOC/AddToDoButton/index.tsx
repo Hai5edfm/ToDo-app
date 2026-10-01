@@ -12,7 +12,7 @@ export const AddToDoButton: FC<AddToDoButtonProps> = ({
     children 
 }: AddToDoButtonProps) => {
     return (
-        <button className='add-to-do-button' onClick={() => setEditingToDos('add')}>
+        <button className='add-to-do-button' aria-label='Add a task' onClick={() => setEditingToDos('add')}>
             { children }
         </button>
     );
